@@ -8,7 +8,7 @@ function App() {
   //main useState hook of the app, state the form search terms on lyrics_search object
   const [lyrics_search, handleLyricsSearch] = useState({});
 
-  //hook to state the lyrics  response from API
+  //hook to state the lyrics  response from the first API
   const [lyrics_artist, handleLyricsArtist] = useState({
     artist_info: "",
     lyrics: "",
@@ -17,7 +17,7 @@ function App() {
   //destructuring lyrics_artist state to use their values independently
   const { lyrics, artist_info } = lyrics_artist;
 
-  //useEffect hook to request the APIs use lyrics_search State as dependency
+  //useEffect hook to request the APIs use lyrics_search and lyrics_artist States as dependency
   useEffect(() => {
     //request the API only if lyrics_search object is NOT empty
     if (
@@ -27,7 +27,7 @@ function App() {
       return;
     //function to request 2 different APis
     const requestLyricsAPI = async () => {
-      //destructuring lyrics_search to seek the song lyrics and artist info
+      //destructuring lyrics_search to put them in the request
       const { artist, song } = lyrics_search;
       //API to request lyrics
       const url = `https://api.lyrics.ovh/v1/${artist}/${song}`;
@@ -49,7 +49,6 @@ function App() {
   return (
     <Fragment>
       <Form handleLyricsSearch={handleLyricsSearch} />
-
       <div className="container mt-5">
         <div className="row">
           <div className="col-md-6">
